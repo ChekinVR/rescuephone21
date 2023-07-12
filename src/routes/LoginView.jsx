@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthProvider from "../components/authProvider";
 
+import style from "./LoginView.module.css";
 
 
 
@@ -83,8 +84,11 @@ export default function LoginView() {
     // }
 
     if (state == 4) {
-        return <div>
-            <button onClick={handleOnClick}>
+        return <div className={style.loginView}>
+            <div>
+                <h1>RescuePhone</h1>
+            </div>
+            <button className={style.provider} onClick={handleOnClick}>
                 Login with Google
             </button>
         </div>;

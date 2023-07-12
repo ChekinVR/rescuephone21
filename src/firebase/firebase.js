@@ -90,10 +90,14 @@ export async function setUserProfilePhoto(uid, file) {
 export async function getProfilePhotoUrl(profilepicture) {
     try {
         const imageRef = ref(storage, profilepicture);
-        
+
         const url = await getDownloadURL(imageRef);
         return url;
     } catch (error) {
         console.error(error);
     }
+}
+
+export async function logout() {
+    await auth.signOut();
 }

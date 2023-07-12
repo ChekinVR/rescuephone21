@@ -2,6 +2,7 @@ import AuthProvider from "../components/authProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import DashboardWrapper from "../components/dashboardWrapper";
+import style from "./DashboardView.module.css"
 
 export default function DashboardView() {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function DashboardView() {
         <div>
             <h1>Dashboard</h1>
 
-            <form action="">
+            <form className={style.entryContainer} action="">
                 <label htmlFor="title">Title</label>
                 <input type="text" name="title"/>
 

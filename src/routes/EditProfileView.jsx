@@ -1,9 +1,12 @@
+//Importar las librerias
 import AuthProvider from "../components/authProvider";
 import DashboardWrapper from "../components/dashboardWrapper";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { getProfilePhotoUrl, setUserProfilePhoto, updateUser } from "../firebase/firebase";
+import style from "./EditProfileView.module.css"
 
+//Inicializamos la funcion y el cuerpo de la página
 export default function EditProfileView() {
     const navigate = useNavigate();
     const [state, setState] = useState(0);
@@ -11,16 +14,20 @@ export default function EditProfileView() {
     const [profileUrl, setProfileUrl] = useState(null);
     const fileRef = useRef();
 
-
-    function handleUserLoggedIn(user) {
+    //Función si el usuario se encuentra logueado
+    async function handleUserLoggedIn(user) {
         setCurrentUser(user);
+        const url = await getProfilePhotoUrl(user.profilePicture);
+        setProfileUrl(url);
         setState(2);
     }
 
+    //Función por si el usuario esta logueado pero no se encuentra registrado
     function handleUserNotRegistered(user) {
         navigate("/login")
     }
 
+    //Función por si el usuario no esta logueado
     function handleUserNotLoggedIn(user) {
         navigate('/login')
     }
@@ -63,13 +70,13 @@ export default function EditProfileView() {
         <DashboardWrapper>
             <div>
                 <h2>Edit profile Info</h2>
-                <div>
+                <div className={style.profilePictureContainer}>
                     <div>
                         <img src={profileUrl} alt="" width={100} />
                     </div>
                     <div>
-                        <button onClick={handleOpenFilePicker}>Elige tu nueva foto de perfil</button>
-                        <input ref={fileRef} type="file" style={{ display: "none" }} onChange={handleChangeFile} />
+                        <button className="btn" onClick={handleOpenFilePicker}>Elige tu nueva foto de perfil</button>
+                        <input className={style.fileInput} ref={fileRef} type="file" style={{ display: "none" }} onChange={handleChangeFile} />
                     </div>
                 </div>
             </div>
